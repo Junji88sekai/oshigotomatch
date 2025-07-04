@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shigoto Memory Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Shigoto Memory Game</h1>
+  <div id="controls">
+    <label><input type="checkbox" id="toggleSound" checked> Oto wo tsukeru</label>
+    <button onclick="revealAll()">Zenbu Akeru</button>
+  </div>
+  <div id="game-board"></div>
+
+  <audio id="correctSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_f7e5b0c610.mp3?filename=correct-2-46134.mp3" preload="auto"></audio>
+  <audio id="wrongSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4d4d8e1b08.mp3?filename=wrong-2-46133.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
