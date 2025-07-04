@@ -60,12 +60,8 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 48px;
-  background: white;
-  border-radius: 50%;
-  padding: 16px;
   font-weight: bold;
-  color: black;
-  border: 2px solid black;
+  color: white;
   z-index: 2;
 }
 #bottom-controls {
