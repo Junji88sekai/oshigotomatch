@@ -15,7 +15,7 @@ body {
 }
 .card {
   position: relative;
-  width: 120px;
+  width: 160px;
   aspect-ratio: 3/4;
   perspective: 1000px;
 }
