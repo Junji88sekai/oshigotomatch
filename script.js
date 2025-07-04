@@ -45,7 +45,7 @@ cards.forEach((card, index) => {
 
 function handleCardClick(card) {
   if (lockBoard || card.classList.contains("matched") || card.classList.contains("flipped")) return;
-  card.classList.add("flipped");
+  card.classList.add("card");
   flipped.push(card);
   if (flipped.length === 2) {
     lockBoard = true;
