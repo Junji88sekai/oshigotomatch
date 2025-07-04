@@ -9,7 +9,14 @@
 <body>
   <h1>Shigoto Memory Game</h1>
   <div id="controls">
-    <label><input type="checkbox" id="toggleSound" checked> Oto wo tsukeru</label>
+  <label><input type="checkbox" id="toggleSound" checked> Oto wo tsukeru</label>
+</div>
+
+<!-- 新しく追加するボタン -->
+<div id="bottom-controls">
+  <button onclick="revealAll()">カードを全部めくる</button>
+</div>
+
     <button onclick="revealAll()">Zenbu Akeru</button>
   </div>
   <div id="game-board"></div>
