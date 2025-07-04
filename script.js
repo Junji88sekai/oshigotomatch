@@ -71,3 +71,31 @@ function handleCardClick(card) {
 function revealAll() {
   document.querySelectorAll(".card").forEach(c => c.classList.add("flipped"));
 }
+function restartGame() {
+  board.innerHTML = "";
+  flipped = [];
+  lockBoard = false;
+  cards = shuffle([...cards]); // 再シャッフル
+
+  cards.forEach((card, index) => {
+    const div = document.createElement("div");
+    div.classList.add("card");
+    div.dataset.id = card.id;
+    div.dataset.type = card.type;
+
+    div.innerHTML = `
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <img src="images/omote.png" alt="omote">
+          <div class="card-number">${index + 1}</div>
+        </div>
+        <div class="card-face card-back">
+          <img src="${card.image}" alt="${card.id}">
+        </div>
+      </div>`;
+
+    div.addEventListener("click", () => handleCardClick(div));
+    board.appendChild(div);
+  });
+}
+
