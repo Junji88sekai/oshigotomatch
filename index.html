@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,21 +7,26 @@
 </head>
 <body>
   <h1>Shigoto Memory Game</h1>
+
   <div id="controls">
-  <label><input type="checkbox" id="toggleSound" checked> Oto wo tsukeru</label>
-</div>
-
-<!-- 新しく追加するボタン -->
-<div id="bottom-controls">
-  <button onclick="revealAll()">カードを全部めくる</button>
-</div>
-
-    <button onclick="revealAll()">Zenbu Akeru</button>
+    <label>
+      <input type="checkbox" id="toggleSound" checked>
+      Oto wo tsukeru
+    </label>
   </div>
+
   <div id="game-board"></div>
 
-  <audio id="correctSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_f7e5b0c610.mp3?filename=correct-2-46134.mp3" preload="auto"></audio>
-  <audio id="wrongSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4d4d8e1b08.mp3?filename=wrong-2-46133.mp3" preload="auto"></audio>
+  <div id="bottom-controls">
+    <button onclick="revealAll()">カードを全部めくる</button>
+  </div>
+
+  <audio id="correctSound"
+         src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_f7e5b0c610.mp3?filename=correct-2-46134.mp3"
+         preload="auto"></audio>
+  <audio id="wrongSound"
+         src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4d4d8e1b08.mp3?filename=wrong-2-46133.mp3"
+         preload="auto"></audio>
 
   <script src="script.js"></script>
 </body>
