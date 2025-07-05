@@ -21,7 +21,6 @@ function shuffle(array) {
 const soundEnabled = document.getElementById("toggleSound");
 let flipped = [], lockBoard = false;
 
-// 🎯 カードを列に分配して表示する関数
 function distributeCards() {
   cards = shuffle([...cards]);
 
@@ -29,15 +28,14 @@ function distributeCards() {
   const col2 = document.getElementById("col2");
   const col3 = document.getElementById("col3");
 
-  // 各列に 7・6・7 枚ずつ分ける
   const col1Cards = cards.slice(0, 7);
   const col2Cards = cards.slice(7, 13);
   const col3Cards = cards.slice(13, 20);
 
+  [col1, col2, col3].forEach(col => col.innerHTML = "");
+
   [col1Cards, col2Cards, col3Cards].forEach((group, columnIndex) => {
     const column = [col1, col2, col3][columnIndex];
-    column.innerHTML = ""; // 初期化
-
     group.forEach((card, index) => {
       const div = document.createElement("div");
       div.classList.add("card");
@@ -61,7 +59,6 @@ function distributeCards() {
   });
 }
 
-// 🎯 カードをクリックしたときの処理
 function handleCardClick(card) {
   if (lockBoard || card.classList.contains("matched") || card.classList.contains("flipped")) return;
 
@@ -78,6 +75,7 @@ function handleCardClick(card) {
     setTimeout(() => {
       const [a, b] = flipped;
       const match = a.dataset.id === b.dataset.id && a.dataset.type !== b.dataset.type;
+
       if (match) {
         a.classList.add("matched");
         b.classList.add("matched");
@@ -87,25 +85,12 @@ function handleCardClick(card) {
         b.classList.remove("flipped");
         if (soundEnabled.checked) document.getElementById("wrongSound").play();
       }
+
       flipped = [];
       lockBoard = false;
     }, 1000);
   }
 }
 
-// 🎯 全部のカードをめくるボタン
 function revealAll() {
-  document.querySelectorAll(".card").forEach(c => c.classList.add("flipped"));
-}
-
-// 🎯 リスタートボタン（カードを再配置）
-function restartGame() {
-  flipped = [];
-  lockBoard = false;
-  distributeCards();
-}
-
-// 🎯 ページ読み込み時に実行
-window.onload = () => {
-  distributeCards();
-};
+  document.quer
