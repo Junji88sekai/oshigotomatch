@@ -18,13 +18,17 @@ function shuffle(array) {
   return array;
 }
 
+cards = shuffle(cards);
+
 const soundEnabled = document.getElementById("toggleSound");
 let flipped = [], lockBoard = false;
 
+// カードクリック処理
 function handleCardClick(card) {
   if (lockBoard || card.classList.contains("matched") || card.classList.contains("flipped")) return;
 
   card.classList.add("flipped");
+
   if (soundEnabled.checked) {
     const flipSound = document.getElementById("flipSound");
     if (flipSound) flipSound.play();
@@ -54,6 +58,7 @@ function handleCardClick(card) {
   }
 }
 
+// すべてのカードを表にする
 function revealAll() {
   document.querySelectorAll(".card").forEach(c => c.classList.add("flipped"));
 }
