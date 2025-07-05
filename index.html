@@ -13,11 +13,11 @@
     #controls {
       margin-bottom: 20px;
     }
-    #game-board {
+    .row {
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
+      margin-bottom: 20px;
     }
     .card {
       position: relative;
@@ -95,7 +95,12 @@
     <label><input type="checkbox" id="toggleSound" checked> 音をつける</label>
   </div>
 
-  <div id="game-board"></div>
+  <!-- 各行を定義 -->
+  <div id="game-board">
+    <div class="row" id="row1"></div>
+    <div class="row" id="row2"></div>
+    <div class="row" id="row3"></div>
+  </div>
 
   <div id="bottom-controls">
     <button onclick="revealAll()">カードを全部めくる</button>
@@ -107,7 +112,6 @@
   <audio id="correctSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_f7e5b0c610.mp3?filename=correct-2-46134.mp3" preload="auto"></audio>
   <audio id="wrongSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4d4d8e1b08.mp3?filename=wrong-2-46133.mp3" preload="auto"></audio>
 
-  <!-- JavaScript -->
   <script>
     const allIds = [
       "kyoushi", "bengoshi", "ginkouin", "koumuin", "isha",
@@ -122,14 +126,6 @@
       }
       return array;
     }
-
-    const selectedIds = shuffle([...allIds]).slice(0, 10);
-
-    let cards = [];
-    selectedIds.forEach(id => {
-      cards.push({ type: "A", id, image: `images/${id}_A.png` });
-      cards.push({ type: "B", id, image: `images/${id}_B.png` });
-    });
 
     let flipped = [], lockBoard = false;
 
@@ -156,11 +152,33 @@
     }
 
     function renderCards() {
-      const board = document.getElementById("game-board");
-      board.innerHTML = "";
+      const row1 = document.getElementById("row1");
+      const row2 = document.getElementById("row2");
+      const row3 = document.getElementById("row3");
 
-      const shuffled = shuffle([...cards]);
-      shuffled.forEach((card, i) => board.appendChild(createCard(card, i)));
+      // 初期化
+      row1.innerHTML = "";
+      row2.innerHTML = "";
+      row3.innerHTML = "";
+
+      // ランダムに10ペア選ぶ
+      const selectedIds = shuffle([...allIds]).slice(0, 10);
+      const cards = [];
+      selectedIds.forEach(id => {
+        cards.push({ type: "A", id, image: `images/${id}_A.png` });
+        cards.push({ type: "B", id, image: `images/${id}_B.png` });
+      });
+
+      const shuffled = shuffle(cards);
+
+      // 分割して行ごとに表示
+      const row1Cards = shuffled.slice(0, 7);
+      const row2Cards = shuffled.slice(7, 13);
+      const row3Cards = shuffled.slice(13, 20);
+
+      row1Cards.forEach((card, i) => row1.appendChild(createCard(card, i)));
+      row2Cards.forEach((card, i) => row2.appendChild(createCard(card, i + 7)));
+      row3Cards.forEach((card, i) => row3.appendChild(createCard(card, i + 13)));
     }
 
     function handleCardClick(card) {
