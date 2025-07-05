@@ -98,4 +98,15 @@ function restartGame() {
     board.appendChild(div);
   });
 }
+function restartGame() {
+  document.getElementById("col1").innerHTML = "";
+  document.getElementById("col2").innerHTML = "";
+  document.getElementById("col3").innerHTML = "";
+  flipped = [];
+  lockBoard = false;
+  distributeCards();  // 再スタート
+}
+window.onload = () => {
+  distributeCards();
+};
 
