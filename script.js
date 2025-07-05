@@ -17,10 +17,62 @@ function shuffle(array) {
   }
   return array;
 }
+
+const soundEnabled = document.getElementById("toggleSound");
+let flipped = [], lockBoard = false;
+
+// 🎯 カードを列に分配して表示する関数
+function distributeCards() {
+  cards = shuffle([...cards]);
+
+  const col1 = document.getElementById("col1");
+  const col2 = document.getElementById("col2");
+  const col3 = document.getElementById("col3");
+
+  // 各列に 7・6・7 枚ずつ分ける
+  const col1Cards = cards.slice(0, 7);
+  const col2Cards = cards.slice(7, 13);
+  const col3Cards = cards.slice(13, 20);
+
+  [col1Cards, col2Cards, col3Cards].forEach((group, columnIndex) => {
+    const column = [col1, col2, col3][columnIndex];
+    column.innerHTML = ""; // 初期化
+
+    group.forEach((card, index) => {
+      const div = document.createElement("div");
+      div.classList.add("card");
+      div.dataset.id = card.id;
+      div.dataset.type = card.type;
+
+      div.innerHTML = `
+        <div class="card-inner">
+          <div class="card-face card-front">
+            <img src="images/omote.png" alt="omote">
+            <div class="card-number">${index + 1}</div>
+          </div>
+          <div class="card-face card-back">
+            <img src="${card.image}" alt="${card.id}">
+          </div>
+        </div>`;
+
+      div.addEventListener("click", () => handleCardClick(div));
+      column.appendChild(div);
+    });
+  });
+}
+
+// 🎯 カードをクリックしたときの処理
 function handleCardClick(card) {
   if (lockBoard || card.classList.contains("matched") || card.classList.contains("flipped")) return;
+
   card.classList.add("flipped");
+  if (soundEnabled.checked) {
+    const flipSound = document.getElementById("flipSound");
+    if (flipSound) flipSound.play();
+  }
+
   flipped.push(card);
+
   if (flipped.length === 2) {
     lockBoard = true;
     setTimeout(() => {
@@ -41,45 +93,19 @@ function handleCardClick(card) {
   }
 }
 
+// 🎯 全部のカードをめくるボタン
 function revealAll() {
   document.querySelectorAll(".card").forEach(c => c.classList.add("flipped"));
 }
+
+// 🎯 リスタートボタン（カードを再配置）
 function restartGame() {
-  board.innerHTML = "";
   flipped = [];
   lockBoard = false;
-  cards = shuffle([...cards]); // 再シャッフル
-
-  cards.forEach((card, index) => {
-    const div = document.createElement("div");
-    div.classList.add("card");
-    div.dataset.id = card.id;
-    div.dataset.type = card.type;
-
-    div.innerHTML = `
-      <div class="card-inner">
-        <div class="card-face card-front">
-          <img src="images/omote.png" alt="omote">
-          <div class="card-number">${index + 1}</div>
-        </div>
-        <div class="card-face card-back">
-          <img src="${card.image}" alt="${card.id}">
-        </div>
-      </div>`;
-
-    div.addEventListener("click", () => handleCardClick(div));
-    board.appendChild(div);
-  });
+  distributeCards();
 }
-function restartGame() {
-  document.getElementById("col1").innerHTML = "";
-  document.getElementById("col2").innerHTML = "";
-  document.getElementById("col3").innerHTML = "";
-  flipped = [];
-  lockBoard = false;
-  distributeCards();  // 再スタート
-}
+
+// 🎯 ページ読み込み時に実行
 window.onload = () => {
   distributeCards();
 };
-
