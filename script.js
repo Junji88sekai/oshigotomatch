@@ -21,43 +21,19 @@ function shuffle(array) {
 const soundEnabled = document.getElementById("toggleSound");
 let flipped = [], lockBoard = false;
 
-function distributeCards() {
-  cards = shuffle([...cards]);
-
-  const col1 = document.getElementById("col1");
-  const col2 = document.getElementById("col2");
-  const col3 = document.getElementById("col3");
-
-  const col1Cards = cards.slice(0, 7);
-  const col2Cards = cards.slice(7, 13);
-  const col3Cards = cards.slice(13, 20);
-
-  [col1, col2, col3].forEach(col => col.innerHTML = "");
-
-  [col1Cards, col2Cards, col3Cards].forEach((group, columnIndex) => {
-    const column = [col1, col2, col3][columnIndex];
-    group.forEach((card, index) => {
-      const div = document.createElement("div");
-      div.classList.add("card");
-      div.dataset.id = card.id;
-      div.dataset.type = card.type;
-
-      div.innerHTML = `
-        <div class="card-inner">
-          <div class="card-face card-front">
-            <img src="images/omote.png" alt="omote">
-            <div class="card-number">${index + 1}</div>
-          </div>
-          <div class="card-face card-back">
-            <img src="${card.image}" alt="${card.id}">
-          </div>
-        </div>`;
-
-      div.addEventListener("click", () => handleCardClick(div));
-      column.appendChild(div);
-    });
-  });
+#game-board {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
 }
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
 
 function handleCardClick(card) {
   if (lockBoard || card.classList.contains("matched") || card.classList.contains("flipped")) return;
