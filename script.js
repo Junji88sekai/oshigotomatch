@@ -1,6 +1,6 @@
 const ids = [
   "kyoushi", "bengoshi", "ginkouin", "koumuin", "isha",
-  "kaishain", "kenkyuusha", "shufu", "enjinia", "tenin","kashu","honyakuka"
+  "kaishain", "kenkyuusha", "shufu", "enjinia", "tenin","kashu","honyakuka","haiyuu"
 ];
 
 let cards = [];
