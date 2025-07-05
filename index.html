@@ -1,45 +1,36 @@
-function renderCards() {
-  const row1 = document.getElementById("row1");
-  const row2 = document.getElementById("row2");
-  const row3 = document.getElementById("row3");
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Shigoto Memory Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Shigoto Memory Game</h1>
 
-  // 各行を初期化
-  row1.innerHTML = "";
-  row2.innerHTML = "";
-  row3.innerHTML = "";
+  <div id="controls">
+    <label><input type="checkbox" id="toggleSound" checked> 音をつける</label>
+  </div>
 
-  // カードの並びをシャッフル
-  cards = shuffle(cards);
+  <div id="game-board">
+    <div class="row" id="row1"></div>
+    <div class="row" id="row2">
+      <div class="column" id="row2-left"></div>
+      <div class="column" id="row2-right"></div>
+    </div>
+    <div class="row" id="row3"></div>
+  </div>
 
-  // 配置パターン：7, 6, 7
-  const row1Cards = cards.slice(0, 7);
-  const row2Cards = cards.slice(7, 13);
-  const row3Cards = cards.slice(13, 20);
+  <div id="bottom-controls">
+    <button onclick="revealAll()">カードを全部めくる</button>
+    <button onclick="restartGame()">リスタート</button>
+  </div>
 
-  let index = 0;
+  <audio id="flipSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_59e42e0c48.mp3?filename=click-124467.mp3" preload="auto"></audio>
+  <audio id="correctSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_f7e5b0c610.mp3?filename=correct-2-46134.mp3" preload="auto"></audio>
+  <audio id="wrongSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4d4d8e1b08.mp3?filename=wrong-2-46133.mp3" preload="auto"></audio>
 
-  [...row1Cards, ...row2Cards, ...row3Cards].forEach((card, i) => {
-    const div = document.createElement("div");
-    div.classList.add("card");
-    div.dataset.id = card.id;
-    div.dataset.type = card.type;
+  <script src="script.js"></script>
+</body>
+</html>
 
-    div.innerHTML = `
-      <div class="card-inner">
-        <div class="card-face card-front">
-          <img src="images/omote.png" alt="front">
-          <div class="card-number">${i + 1}</div>
-        </div>
-        <div class="card-face card-back">
-          <img src="${card.image}" alt="${card.id}">
-        </div>
-      </div>
-    `;
-
-    div.addEventListener("click", () => handleCardClick(div));
-
-    if (i < 7) row1.appendChild(div);
-    else if (i < 13) row2.appendChild(div);
-    else row3.appendChild(div);
-  });
-}
