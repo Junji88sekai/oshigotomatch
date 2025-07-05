@@ -3,7 +3,7 @@
   const allIds = [
     "kyoushi", "bengoshi", "ginkouin", "koumuin", "isha",
     "kaishain", "kenkyuusha", "shufu", "enjinia", "tenin",
-    "kashu", "honyakuka", "haiyu"
+    "kashu", "honyakuka", "haiyuu"
   ];
 
   // 配列をシャッフルする関数
