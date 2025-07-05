@@ -1,15 +1,21 @@
+// 職業IDリスト（23種類）
 const ids = [
   "kyoushi", "bengoshi", "ginkouin", "koumuin", "isha",
-  "kaishain", "kenkyuusha", "shufu", "enjinia", "tenin","kashu","honyakuka","haiyuu"
+  "kaishain", "kenkyuusha", "shufu", "enjinia", "tenin",
+  "untenshu", "keisatsukan", "eigyouman", "geijutsuka", "kangoshi",
+  "kagakusha", "noomin", "programmer", "designer", "kankyogyou",
+  "sekouin", "hoikushi", "yakuzaishi"
 ];
 
 let cards = [];
 
+// A・Bペアで生成
 ids.forEach(id => {
-  cards.push({ type: "A", id, image: "images/" + id + "_A.png" });
-  cards.push({ type: "B", id, image: "images/" + id + "_B.png" });
+  cards.push({ type: "A", id, image: `images/${id}_A.png` });
+  cards.push({ type: "B", id, image: `images/${id}_B.png` });
 });
 
+// カードをシャッフル（ランダム表示）
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -17,6 +23,9 @@ function shuffle(array) {
   }
   return array;
 }
+
+cards = shuffle(cards); // ←ランダム化
+
 
 let flipped = [], lockBoard = false;
 
