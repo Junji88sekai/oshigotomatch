@@ -9,17 +9,18 @@
   <h1>Shigoto Memory Game</h1>
 
   <div id="controls">
-    <label>
-      <input type="checkbox" id="toggleSound" checked>
-      Oto wo tsukeru
-    </label>
-  </div>
+  <label><input type="checkbox" id="toggleSound" checked> Oto wo tsukeru</label>
+</div>
 
-  <div id="game-board"></div>
+<div id="game-board">
+  <div class="column" id="col1"></div> <!-- 左列：7枚 -->
+  <div class="column" id="col2"></div> <!-- 中央列：6枚 -->
+  <div class="column" id="col3"></div> <!-- 右列：7枚 -->
+</div>
 
-  <div id="bottom-controls">
+<div id="bottom-controls">
   <button onclick="revealAll()">カードを全部めくる</button>
-  <button onclick="restartGame()">リスタート</button> <!-- ✅ 追加！ -->
+  <button onclick="restartGame()">リスタート</button>
 </div>
 
 
