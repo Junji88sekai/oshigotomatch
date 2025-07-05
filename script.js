@@ -2,9 +2,7 @@
 const ids = [
   "kyoushi", "bengoshi", "ginkouin", "koumuin", "isha",
   "kaishain", "kenkyuusha", "shufu", "enjinia", "tenin",
-  "untenshu", "keisatsukan", "eigyouman", "geijutsuka", "kangoshi",
-  "kagakusha", "noomin", "programmer", "designer", "kankyogyou",
-  "sekouin", "hoikushi", "yakuzaishi"
+  "kashu", "honyakuka", "haiyu",
 ];
 
 let cards = [];
