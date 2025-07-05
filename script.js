@@ -21,20 +21,6 @@ function shuffle(array) {
 const soundEnabled = document.getElementById("toggleSound");
 let flipped = [], lockBoard = false;
 
-#game-board {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  align-items: center;
-}
-
-.row {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-
 function handleCardClick(card) {
   if (lockBoard || card.classList.contains("matched") || card.classList.contains("flipped")) return;
 
@@ -69,4 +55,5 @@ function handleCardClick(card) {
 }
 
 function revealAll() {
-  document.quer
+  document.querySelectorAll(".card").forEach(c => c.classList.add("flipped"));
+}
