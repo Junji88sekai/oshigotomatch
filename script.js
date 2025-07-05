@@ -50,26 +50,24 @@ function createCard(card, index) {
 }
 
 function renderCards() {
-  const row1 = document.getElementById("row1");
-  const row2Left = document.getElementById("row2-left");
-  const row2Right = document.getElementById("row2-right");
-  const row3 = document.getElementById("row3");
+  const board = document.getElementById("game-board");
+  board.innerHTML = ""; // 全消去
 
-  row1.innerHTML = "";
-  row2Left.innerHTML = "";
-  row2Right.innerHTML = "";
-  row3.innerHTML = "";
+  cards = shuffle(cards); // ランダム化
 
-  cards = shuffle(cards);
+  const layout = [8, 8, 8, 8, 7, 7]; // 行ごとのカード数（合計46）
+  let cardIndex = 0;
 
-  const row1Cards = cards.slice(0, 7);
-  const row2Cards = cards.slice(7, 13);
-  const row3Cards = cards.slice(13);
-
-  row1Cards.forEach((c, i) => row1.appendChild(createCard(c, i)));
-  row2Cards.slice(0, 3).forEach((c, i) => row2Left.appendChild(createCard(c, i + 7)));
-  row2Cards.slice(3).forEach((c, i) => row2Right.appendChild(createCard(c, i + 10)));
-  row3Cards.forEach((c, i) => row3.appendChild(createCard(c, i + 13)));
+  layout.forEach((count, rowNum) => {
+    const row = document.createElement("div");
+    row.classList.add("row");
+    for (let i = 0; i < count; i++) {
+      const card = createCard(cards[cardIndex], cardIndex);
+      row.appendChild(card);
+      cardIndex++;
+    }
+    board.appendChild(row);
+  });
 }
 
 function handleCardClick(card) {
