@@ -1,4 +1,3 @@
-// 職業IDリスト（23種類）
 const ids = [
   "kyoushi", "bengoshi", "ginkouin", "koumuin", "isha",
   "kaishain", "kenkyuusha", "shufu", "enjinia", "tenin",
@@ -7,13 +6,11 @@ const ids = [
 
 let cards = [];
 
-// A・Bペアで生成
 ids.forEach(id => {
   cards.push({ type: "A", id, image: `images/${id}_A.png` });
   cards.push({ type: "B", id, image: `images/${id}_B.png` });
 });
 
-// カードをシャッフル（ランダム表示）
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -21,9 +18,6 @@ function shuffle(array) {
   }
   return array;
 }
-
-cards = shuffle(cards); // ←ランダム化
-
 
 let flipped = [], lockBoard = false;
 
@@ -51,19 +45,17 @@ function createCard(card, index) {
 
 function renderCards() {
   const board = document.getElementById("game-board");
-  board.innerHTML = ""; // 全消去
+  board.innerHTML = "";
 
-  cards = shuffle(cards); // ランダム化
-
-  const layout = [8, 8, 8, 8, 7, 7]; // 行ごとのカード数（合計46）
+  cards = shuffle(cards);
+  const layout = [8, 8, 8, 8, 7, 7];
   let cardIndex = 0;
 
-  layout.forEach((count, rowNum) => {
+  layout.forEach(rowCount => {
     const row = document.createElement("div");
     row.classList.add("row");
-    for (let i = 0; i < count; i++) {
-      const card = createCard(cards[cardIndex], cardIndex);
-      row.appendChild(card);
+    for (let i = 0; i < rowCount && cardIndex < cards.length; i++) {
+      row.appendChild(createCard(cards[cardIndex], cardIndex));
       cardIndex++;
     }
     board.appendChild(row);
@@ -75,10 +67,8 @@ function handleCardClick(card) {
 
   card.classList.add("flipped");
 
-  if (document.getElementById("toggleSound").checked) {
-    const flipSound = document.getElementById("flipSound");
-    if (flipSound) flipSound.play();
-  }
+  if (document.getElementById("toggleSound").checked)
+    document.getElementById("flipSound").play();
 
   flipped.push(card);
 
@@ -117,4 +107,3 @@ function restartGame() {
 }
 
 window.onload = renderCards;
-
