@@ -1,13 +1,29 @@
-<!-- 省略 -->
-<div id="controls">
-  <label><input type="checkbox" id="toggleSound" checked> 音をつける</label>
-</div>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Shigoto Memory Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Shigoto Memory Game</h1>
 
-<!-- ✅ 自動レイアウト対応：行なし -->
-<div id="game-board"></div>
+  <div id="controls">
+    <label><input type="checkbox" id="toggleSound" checked> 音をつける</label>
+  </div>
 
-<div id="bottom-controls">
-  <button onclick="revealAll()">カードを全部めくる</button>
-  <button onclick="restartGame()">リスタート</button>
-</div>
-<!-- 省略 -->
+  <div id="game-board"></div>
+
+  <div id="bottom-controls">
+    <button onclick="revealAll()">カードを全部めくる</button>
+    <button onclick="restartGame()">リスタート</button>
+  </div>
+
+  <!-- 効果音 -->
+  <audio id="flipSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_59e42e0c48.mp3?filename=click-124467.mp3" preload="auto"></audio>
+  <audio id="correctSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_f7e5b0c610.mp3?filename=correct-2-46134.mp3" preload="auto"></audio>
+  <audio id="wrongSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4d4d8e1b08.mp3?filename=wrong-2-46133.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
