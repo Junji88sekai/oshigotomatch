@@ -17,33 +17,6 @@ function shuffle(array) {
   }
   return array;
 }
-
-cards = shuffle(cards);
-const board = document.getElementById("game-board");
-const soundEnabled = document.getElementById("toggleSound");
-let flipped = [], lockBoard = false;
-
-cards.forEach((card, index) => {
-  const div = document.createElement("div");
-  div.classList.add("card");
-  div.dataset.id = card.id;
-  div.dataset.type = card.type;
-
-  div.innerHTML = `
-    <div class="card-inner">
-      <div class="card-face card-front">
-        <img src="images/omote.png" alt="omote">
-        <div class="card-number">${index + 1}</div>
-      </div>
-      <div class="card-face card-back">
-        <img src="${card.image}" alt="${card.id}">
-      </div>
-    </div>`;
-
-  div.addEventListener("click", () => handleCardClick(div));
-  board.appendChild(div);
-});
-
 function handleCardClick(card) {
   if (lockBoard || card.classList.contains("matched") || card.classList.contains("flipped")) return;
   card.classList.add("flipped");
