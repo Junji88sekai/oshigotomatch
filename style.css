@@ -9,9 +9,15 @@ body {
 }
 #game-board {
   display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.row {
+  display: flex;
   justify-content: center;
-  gap: 40px;
-  margin-top: 20px;
+  gap: 20px;
 }
 
 .column {
