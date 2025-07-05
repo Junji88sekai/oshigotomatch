@@ -36,7 +36,7 @@
     div.innerHTML = `
       <div class="card-inner">
         <div class="card-face card-front">
-          <img src="images/1.png" alt="front">
+          <img src="images/omote.png" alt="front">
           <div class="card-number">${index + 1}</div>
         </div>
         <div class="card-face card-back">
