@@ -48,21 +48,18 @@
     div.addEventListener("click", () => handleCardClick(div));
     return div;
   }
+function renderCards() {
+  const board = document.getElementById("game-board");
+  board.innerHTML = "";
+  const shuffled = shuffle([...cards]);
 
-  function renderCards() {
-    const board = document.getElementById("game-board");
-    board.innerHTML = "";
-    const shuffled = shuffle([...cards]);
+  shuffled.forEach((card, i) => {
+    board.appendChild(createCard(card, i));
+  });
 
-    shuffled.forEach((card, i) => {
-      board.appendChild(createCard(card, i));
-    });
-  }
-  row3Cards.forEach((card, i) => row3.appendChild(createCard(card, i + 13)));
-
-  // タイマー開始
+  // タイマー開始（ここが正しい位置）
   startTimer();
-
+}
   function handleCardClick(card) {
     if (lockBoard || card.classList.contains("matched") || card.classList.contains("flipped")) return;
 
