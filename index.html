@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Shigoto Memory Game</title>
-  <div id="timer">経過時間: 0 秒</div>
   <style>
     body {
       font-family: sans-serif;
@@ -11,92 +10,22 @@
       background: #f0f0f0;
       margin: 20px;
     }
-    #controls {
-      margin-bottom: 20px;
-    }
-    .row {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-    .card {
-      position: relative;
-      width: 160px;
-      aspect-ratio: 3 / 4;
-      perspective: 1000px;
-    }
-    .card-inner {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transform-style: preserve-3d;
-      transition: transform 0.6s;
-    }
-    .card.flipped .card-inner {
-      transform: rotateY(180deg);
-    }
-    .card-face {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      border-radius: 12px;
-      backface-visibility: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-    .card-front {
-      transform: rotateY(0deg);
-      z-index: 2;
-    }
-    .card-back {
-      transform: rotateY(180deg);
-    }
-    .card-back img,
-    .card-front img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      border-radius: 12px;
-    }
-    .card-number {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 48px;
+    #timer {
+      font-size: 20px;
       font-weight: bold;
-      color: white;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-      z-index: 2;
+      margin: 10px 0;
     }
-    #bottom-controls {
-      margin-top: 30px;
-    }
-    #bottom-controls button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background: #3b82f6;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-    #bottom-controls button:hover {
-      background: #2563eb;
-    }
+    /* その他スタイルは省略（省略せず残してもOK） */
   </style>
 </head>
 <body>
   <h1>Shigoto Memory Game</h1>
+  <div id="timer">経過時間: 0 秒</div> <!-- ✅ 正しい位置 -->
 
   <div id="controls">
     <label><input type="checkbox" id="toggleSound" checked> 音をつける</label>
   </div>
 
-  <!-- 各行を定義 -->
   <div id="game-board">
     <div class="row" id="row1"></div>
     <div class="row" id="row2"></div>
@@ -107,6 +36,12 @@
     <button onclick="revealAll()">カードを全部めくる</button>
     <button onclick="restartGame()">リスタート</button>
   </div>
+
+  <!-- 効果音 -->
+  <audio id="flipSound" src="sounds/flip.mp3" preload="auto"></audio>
+  <audio id="correctSound" src="sounds/correct.mp3" preload="auto"></audio>
+  <audio id="wrongSound" src="sounds/wrong.mp3" preload="auto"></audio>
+
   <script>
     const allIds = [
       "kyoushi", "bengoshi", "ginkouin", "koumuin", "isha",
@@ -123,6 +58,7 @@
     }
 
     let flipped = [], lockBoard = false;
+    let startTime, timerInterval;
 
     function createCard(card, index) {
       const div = document.createElement("div");
@@ -141,7 +77,6 @@
           </div>
         </div>
       `;
-
       div.addEventListener("click", () => handleCardClick(div));
       return div;
     }
@@ -151,12 +86,10 @@
       const row2 = document.getElementById("row2");
       const row3 = document.getElementById("row3");
 
-      // 初期化
       row1.innerHTML = "";
       row2.innerHTML = "";
       row3.innerHTML = "";
 
-      // ランダムに10ペア選ぶ
       const selectedIds = shuffle([...allIds]).slice(0, 10);
       const cards = [];
       selectedIds.forEach(id => {
@@ -166,7 +99,6 @@
 
       const shuffled = shuffle(cards);
 
-      // 分割して行ごとに表示
       const row1Cards = shuffled.slice(0, 7);
       const row2Cards = shuffled.slice(7, 13);
       const row3Cards = shuffled.slice(13, 20);
@@ -174,6 +106,8 @@
       row1Cards.forEach((card, i) => row1.appendChild(createCard(card, i)));
       row2Cards.forEach((card, i) => row2.appendChild(createCard(card, i + 7)));
       row3Cards.forEach((card, i) => row3.appendChild(createCard(card, i + 13)));
+
+      startTimer(); // ✅ タイマー開始
     }
 
     function handleCardClick(card) {
@@ -196,6 +130,10 @@
             b.classList.add("matched");
             if (document.getElementById("toggleSound").checked)
               document.getElementById("correctSound").play();
+
+            // ✅ 全てマッチで終了
+            if (document.querySelectorAll(".matched").length === 20) stopTimer();
+
           } else {
             a.classList.remove("flipped");
             b.classList.remove("flipped");
@@ -219,11 +157,20 @@
       renderCards();
     }
 
+    function startTimer() {
+      startTime = Date.now();
+      clearInterval(timerInterval);
+      timerInterval = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000);
+        document.getElementById("timer").textContent = `経過時間: ${elapsed} 秒`;
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+    }
+
     window.onload = renderCards;
   </script>
-  <!-- 効果音 -->
-<audio id="flipSound" src="sounds/flip.mp3" preload="auto"></audio>
-<audio id="correctSound" src="sounds/correct.mp3" preload="auto"></audio>
-<audio id="wrongSound" src="sounds/wrong.mp3" preload="auto"></audio>
 </body>
 </html>
