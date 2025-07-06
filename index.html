@@ -106,12 +106,6 @@
     <button onclick="revealAll()">カードを全部めくる</button>
     <button onclick="restartGame()">リスタート</button>
   </div>
-
-  <!-- 音声 -->
-  <audio id="flipSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_59e42e0c48.mp3?filename=click-124467.mp3" preload="auto"></audio>
-  <audio id="correctSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_f7e5b0c610.mp3?filename=correct-2-46134.mp3" preload="auto"></audio>
-  <audio id="wrongSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4d4d8e1b08.mp3?filename=wrong-2-46133.mp3" preload="auto"></audio>
-
   <script>
     const allIds = [
       "kyoushi", "bengoshi", "ginkouin", "koumuin", "isha",
@@ -226,5 +220,9 @@
 
     window.onload = renderCards;
   </script>
+  <!-- 効果音 -->
+<audio id="flipSound" src="sounds/flip.mp3" preload="auto"></audio>
+<audio id="correctSound" src="sounds/correct.mp3" preload="auto"></audio>
+<audio id="wrongSound" src="sounds/wrong.mp3" preload="auto"></audio>
 </body>
 </html>
