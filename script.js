@@ -58,6 +58,10 @@
       board.appendChild(createCard(card, i));
     });
   }
+  row3Cards.forEach((card, i) => row3.appendChild(createCard(card, i + 13)));
+
+  // タイマー開始
+  startTimer();
 
   function handleCardClick(card) {
     if (lockBoard || card.classList.contains("matched") || card.classList.contains("flipped")) return;
