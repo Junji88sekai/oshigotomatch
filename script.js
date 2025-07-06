@@ -102,6 +102,20 @@
     lockBoard = false;
     renderCards();
   }
+let startTime, timerInterval;
+
+function startTimer() {
+  startTime = Date.now();
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    const elapsedSec = Math.floor((Date.now() - startTime) / 1000);
+    document.getElementById("timer").textContent = `経過時間: ${elapsedSec} 秒`;
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+}
 
   window.onload = renderCards;
 </script>
