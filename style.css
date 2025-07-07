@@ -64,19 +64,15 @@ body {
   display: block;
 }
 
-/* ✅ カード中央に白い囲み数字を表示 */
 .card-number {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 28px;
+  bottom: 6px;
+  right: 6px;
+  font-size: 14px;
   font-weight: bold;
-  color: black;
-  background: white;
-  padding: 8px 14px;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2px 6px;
+  border-radius: 4px;
   z-index: 3;
-  pointer-events: none;
 }
