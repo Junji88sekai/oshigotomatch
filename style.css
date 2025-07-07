@@ -20,7 +20,7 @@ body {
 }
 
 .card {
-  width: 100px; /* ← 小さめに調整（例：80〜120px） */
+  width: 120px;
   aspect-ratio: 3 / 4;
   perspective: 1000px;
   position: relative;
@@ -29,9 +29,9 @@ body {
 .card-inner {
   width: 100%;
   height: 100%;
-  position: relative;
   transform-style: preserve-3d;
   transition: transform 0.6s;
+  position: relative;
 }
 
 .card.flipped .card-inner {
@@ -42,14 +42,24 @@ body {
   position: absolute;
   width: 100%;
   height: 100%;
-  border-radius: 10px;
   backface-visibility: hidden;
+  border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.card-front {
+  transform: rotateY(0deg);
+  z-index: 2;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
 
 .card-back {
   transform: rotateY(180deg);
+  background: white;
 }
 
 .card-face img {
@@ -61,19 +71,25 @@ body {
 
 .card-number {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 32px;
+  bottom: 6px;
+  right: 6px;
+  font-size: 18px;
   font-weight: bold;
-  color: white;
-  text-shadow: 0 0 4px rgba(0,0,0,0.7);
-  z-index: 2;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2px 6px;
+  border-radius: 4px;
+  z-index: 3;
 }
 
 #timer {
   font-size: 18px;
+  font-weight: bold;
   margin-bottom: 10px;
+}
+
+#controls {
+  margin-bottom: 20px;
 }
 
 #bottom-controls {
@@ -89,7 +105,7 @@ body {
   border-radius: 8px;
   cursor: pointer;
 }
+
 #bottom-controls button:hover {
   background: #2563eb;
 }
-
