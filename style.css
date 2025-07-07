@@ -7,10 +7,17 @@ body {
 
 #game-board {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
   margin-top: 20px;
+}
+
+/* 3行それぞれの行を横並びにする */
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
 }
 
 .card {
