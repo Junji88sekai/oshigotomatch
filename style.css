@@ -7,17 +7,10 @@ body {
 
 #game-board {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-  margin-top: 20px;
-}
-
-/* 3行それぞれの行を横並びにする */
-.row {
-  display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
   gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .card {
@@ -71,15 +64,19 @@ body {
   display: block;
 }
 
+/* ✅ カード中央に白い囲み数字を表示 */
 .card-number {
   position: absolute;
-  bottom: 6px;
-  right: 6px;
-  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 28px;
   font-weight: bold;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.5);
-  padding: 2px 6px;
-  border-radius: 4px;
+  color: black;
+  background: white;
+  padding: 8px 14px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   z-index: 3;
+  pointer-events: none;
 }
