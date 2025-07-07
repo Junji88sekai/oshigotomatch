@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Shigoto Memory Game</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Shigoto Memory Game</h1>
+
   <div id="timer">経過時間: 0 秒</div>
+
   <div id="controls">
     <label><input type="checkbox" id="toggleSound" checked> 音をつける</label>
   </div>
-  <div id="game-board"></div>
+
+  <div id="game-board">
+    <div class="row" id="row1"></div>
+    <div class="row" id="row2"></div>
+    <div class="row" id="row3"></div>
+  </div>
+
   <div id="bottom-controls">
     <button onclick="revealAll()">カードを全部めくる</button>
     <button onclick="restartGame()">リスタート</button>
   </div>
 
-  <!-- 効果音 -->
+  <!-- 効果音ファイル -->
   <audio id="flipSound" src="sounds/flip.mp3" preload="auto"></audio>
   <audio id="correctSound" src="sounds/correct.mp3" preload="auto"></audio>
   <audio id="wrongSound" src="sounds/wrong.mp3" preload="auto"></audio>
 
+  <!-- JavaScript 読み込み -->
   <script src="script.js"></script>
 </body>
 </html>
