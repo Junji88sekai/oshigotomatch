@@ -117,6 +117,6 @@ function startTimer() {
 function stopTimer() {
   clearInterval(timerInterval);
 }
-
-  window.onload = renderCards;
-</script>
+window.addEventListener("DOMContentLoaded", () => {
+  renderCards();
+});
