@@ -106,11 +106,13 @@ function renderCards() {
 let startTime, timerInterval;
 
 function startTimer() {
+  console.log("✅ startTimerが呼ばれました");  // ← これがログ
   startTime = Date.now();
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
-    const elapsedSec = Math.floor((Date.now() - startTime) / 1000);
-    document.getElementById("timer").textContent = `経過時間: ${elapsedSec} 秒`;
+    const elapsed = Math.floor((Date.now() - startTime) / 1000);
+    console.log("⏱ 経過時間:", elapsed); // ← 毎秒ログ表示
+    document.getElementById("timer").textContent = `経過時間: ${elapsed} 秒`;
   }, 1000);
 }
 
