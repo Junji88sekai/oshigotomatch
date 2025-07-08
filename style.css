@@ -90,7 +90,7 @@ body {
   transform: translate(-50%, -50%);
   font-size: 48px;
   font-weight: bold;
-  color: #333;
+  color: #fff;
   z-index: 3;
   pointer-events: none;
 }
