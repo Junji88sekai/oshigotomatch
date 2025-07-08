@@ -37,7 +37,7 @@ function createCard(card, index) {
       <div class="card-face card-front">
   <img src="images/omote.png" alt="front">
   <div class="card-digit">${index + 1}</div> <!-- 中央の大きな数字 -->
-  <div class="card-number">${index + 1}</div> <!-- 右下の小さい数字（必要なければ削除可） -->
+
 </div>
       <div class="card-face card-back">
         <img src="${card.image}" alt="${card.id}">
