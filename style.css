@@ -21,8 +21,8 @@ body {
 }
 
 .card {
-  width: 100px;
-  height: 130px;
+  width: 130px;
+  height: 170px;
   perspective: 1000px;
   position: relative;
 }
