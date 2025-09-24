@@ -106,7 +106,7 @@ function handleCardClick(card) {
 
       flipped = [];
       lockBoard = false;
-    }, 1000);
+    }, 2000);
   }
 }
 
