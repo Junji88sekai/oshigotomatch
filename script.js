@@ -65,9 +65,10 @@ function renderCards() {
 
 // --- カードをクリックした時の処理 ---
 function handleCardClick(card) {
+  // BGMがまだ再生されていない場合、最初のクリックで再生を開始
   if (!bgmPlayed) {
     document.getElementById("bgm").play();
-    bgmPlayed = true;
+    bgmPlayed = true; // BGMが再生されたことを記録
   }
   if (lockBoard || card.classList.contains("matched") || card.classList.contains("flipped")) return;
   card.classList.add("flipped");
@@ -112,6 +113,9 @@ function restartGame() {
   const bgm = document.getElementById("bgm");
   bgm.pause();
   bgm.currentTime = 0;
+  // BGMボタンのテキストをリセット
+  const bgmButton = document.getElementById("toggleBGMButton");
+  bgmButton.textContent = "BGMを再生";
   renderCards();
 }
 
@@ -119,10 +123,24 @@ function restartGame() {
 window.addEventListener("DOMContentLoaded", () => {
   renderCards();
   
-  // BGM音量スライダーのイベントリスナー
-  const volumeSlider = document.getElementById("volumeSlider");
+  // BGMボタンのクリックイベント
   const bgm = document.getElementById("bgm");
-  
+  const bgmButton = document.getElementById("toggleBGMButton");
+
+  if (bgmButton && bgm) {
+    bgmButton.addEventListener("click", () => {
+      if (bgm.paused) {
+        bgm.play();
+        bgmButton.textContent = "BGMを止める";
+      } else {
+        bgm.pause();
+        bgmButton.textContent = "BGMを再生";
+      }
+    });
+  }
+
+  // 音量スライダーの変更イベント
+  const volumeSlider = document.getElementById("volumeSlider");
   if (volumeSlider && bgm) {
     volumeSlider.addEventListener("input", () => {
       bgm.volume = volumeSlider.value;
