@@ -113,6 +113,8 @@ function restartGame() {
   const bgm = document.getElementById("bgm");
   bgm.pause();
   bgm.currentTime = 0; // 曲の再生位置を最初に戻す
+   // ここに音量リセットのコードを追加
+    bgm.volume = 1; 
   renderCards();
 }
 
