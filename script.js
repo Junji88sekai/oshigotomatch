@@ -16,7 +16,7 @@ function shuffle(array) {
 
 // --- 初期化 ---
 let flipped = [], lockBoard = false;
-let bgmPlayed = false; // BGMが一度再生されたかどうかを追跡する新しい変数
+let bgmPlayed = false; // BGMが一度再生されたかどうかを追跡する
 
 const selectedIds = shuffle([...allIds]).slice(0, 10);
 let cards = [];
@@ -113,8 +113,6 @@ function restartGame() {
   const bgm = document.getElementById("bgm");
   bgm.pause();
   bgm.currentTime = 0; // 曲の再生位置を最初に戻す
-   // ここに音量リセットのコードを追加
-    bgm.volume = 1; 
   renderCards();
 }
 
