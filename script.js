@@ -16,7 +16,8 @@ function shuffle(array) {
 
 // --- 初期化 ---
 let flipped = [], lockBoard = false;
-// let startTime, timerInterval; ← 削除
+let bgmPlayed = false; // BGMが一度再生されたかどうかの状態
+let bgmIsPlaying = false; // BGMが現在再生中かどうかを追跡
 
 const selectedIds = shuffle([...allIds]).slice(0, 10);
 let cards = [];
@@ -25,13 +26,27 @@ selectedIds.forEach(id => {
   cards.push({ type: "B", id, image: `images/${id}_B.png` });
 });
 
+// --- BGMを再生/停止する関数 ---
+function toggleBGM() {
+  const bgm = document.getElementById("bgm");
+  const bgmButton = document.getElementById("toggleBGMButton");
+
+  if (bgmIsPlaying) {
+    bgm.pause();
+    bgmButton.textContent = "BGMを再生";
+  } else {
+    bgm.play();
+    bgmButton.textContent = "BGMを止める";
+  }
+  bgmIsPlaying = !bgmIsPlaying; // 状態を反転
+}
+
 // --- カードを生成する関数 ---
 function createCard(card, index) {
   const div = document.createElement("div");
   div.classList.add("card");
   div.dataset.id = card.id;
   div.dataset.type = card.type;
-
   div.innerHTML = `
     <div class="card-inner">
       <div class="card-face card-front">
@@ -43,93 +58,59 @@ function createCard(card, index) {
       </div>
     </div>
   `;
-
   div.addEventListener("click", () => handleCardClick(div));
   return div;
 }
-// --- BGM再生 ---
-function playBGM() {
-  document.getElementById("bgm").play();
-}
-let bgmIsPlaying = true; // BGMが再生中かどうかを追跡する
 
-// BGMを再生/停止する関数
-function toggleBGM() {
-    const bgm = document.getElementById("bgm");
-    const bgmButton = document.getElementById("toggleBGMButton");
-
-    if (bgmIsPlaying) {
-        bgm.pause();
-        bgmButton.textContent = "BGMを再生";
-    } else {
-        bgm.play();
-        bgmButton.textContent = "BGMを止める";
-    }
-    bgmIsPlaying = !bgmIsPlaying; // 状態を反転
-}
-window.addEventListener("DOMContentLoaded", () => {
-    // 既存のコード
-    renderCards();
-    
-    // BGMボタンのイベントリスナーを追加
-    document.getElementById("toggleBGMButton").addEventListener("click", toggleBGM);
-});
 // --- カードを3列に分けて表示 ---
 function renderCards() {
   const row1 = document.getElementById("row1");
   const row2 = document.getElementById("row2");
   const row3 = document.getElementById("row3");
-
   row1.innerHTML = "";
   row2.innerHTML = "";
   row3.innerHTML = "";
-
   const shuffled = shuffle([...cards]);
-
   const row1Cards = shuffled.slice(0, 7);
   const row2Cards = shuffled.slice(7, 13);
   const row3Cards = shuffled.slice(13, 20);
-
   row1Cards.forEach((card, i) => row1.appendChild(createCard(card, i)));
   row2Cards.forEach((card, i) => row2.appendChild(createCard(card, i + 7)));
   row3Cards.forEach((card, i) => row3.appendChild(createCard(card, i + 13)));
-playBGM(); // ここに追加
-  // startTimer(); ← 削除
 }
 
 // --- カードをクリックした時の処理 ---
 function handleCardClick(card) {
+  // BGMがまだ再生されていない場合、最初のクリックで再生を開始
+  if (!bgmPlayed) {
+    document.getElementById("bgm").play();
+    bgmPlayed = true;
+    bgmIsPlaying = true;
+  }
   if (lockBoard || card.classList.contains("matched") || card.classList.contains("flipped")) return;
-
   card.classList.add("flipped");
   if (document.getElementById("toggleSound").checked)
     document.getElementById("flipSound").play();
-
   flipped.push(card);
-
   if (flipped.length === 2) {
     lockBoard = true;
     setTimeout(() => {
       const [a, b] = flipped;
       const match = a.dataset.id === b.dataset.id && a.dataset.type !== b.dataset.type;
-
       if (match) {
         a.classList.add("matched");
         b.classList.add("matched");
         if (document.getElementById("toggleSound").checked)
           document.getElementById("correctSound").play();
-
-        // 全カード一致判定は残して、タイマー停止の呼び出しを削除
-        if (document.querySelectorAll(".matched").length === 20)
-          // stopTimer(); ← 削除
-          console.log("ゲームクリア！"); // コンソールに表示するだけにするなど
+        if (document.querySelectorAll(".matched").length === 20) {
+          console.log("ゲームクリア！");
+        }
       } else {
         a.classList.remove("flipped");
         b.classList.remove("flipped");
         if (document.getElementById("toggleSound").checked)
           document.getElementById("wrongSound").play();
       }
-
       flipped = [];
       lockBoard = false;
     }, 2000);
@@ -145,8 +126,19 @@ function revealAll() {
 function restartGame() {
   flipped = [];
   lockBoard = false;
+  bgmPlayed = false; // BGMの状態をリセット
+  // BGMを停止し、曲の最初に戻す
+  const bgm = document.getElementById("bgm");
+  bgm.pause();
+  bgm.currentTime = 0;
+  // BGMボタンのテキストをリセット
+  document.getElementById("toggleBGMButton").textContent = "BGMを再生";
+  bgmIsPlaying = false;
   renderCards();
 }
 
 // --- 初期化：ページ読み込み時にゲーム開始 ---
-window.addEventListener("DOMContentLoaded", renderCards);
+window.addEventListener("DOMContentLoaded", () => {
+    renderCards();
+    document.getElementById("toggleBGMButton").addEventListener("click", toggleBGM);
+});
