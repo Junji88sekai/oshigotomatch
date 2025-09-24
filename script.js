@@ -16,8 +16,7 @@ function shuffle(array) {
 
 // --- 初期化 ---
 let flipped = [], lockBoard = false;
-let bgmPlayed = false; // BGMが一度再生されたかどうかの状態
-let bgmIsPlaying = false; // BGMが現在再生中かどうかを追跡
+let bgmPlayed = false; // BGMが一度再生されたかどうかを追跡する新しい変数
 
 const selectedIds = shuffle([...allIds]).slice(0, 10);
 let cards = [];
@@ -25,21 +24,6 @@ selectedIds.forEach(id => {
   cards.push({ type: "A", id, image: `images/${id}_A.png` });
   cards.push({ type: "B", id, image: `images/${id}_B.png` });
 });
-
-// --- BGMを再生/停止する関数 ---
-function toggleBGM() {
-  const bgm = document.getElementById("bgm");
-  const bgmButton = document.getElementById("toggleBGMButton");
-
-  if (bgmIsPlaying) {
-    bgm.pause();
-    bgmButton.textContent = "BGMを再生";
-  } else {
-    bgm.play();
-    bgmButton.textContent = "BGMを止める";
-  }
-  bgmIsPlaying = !bgmIsPlaying; // 状態を反転
-}
 
 // --- カードを生成する関数 ---
 function createCard(card, index) {
@@ -84,8 +68,7 @@ function handleCardClick(card) {
   // BGMがまだ再生されていない場合、最初のクリックで再生を開始
   if (!bgmPlayed) {
     document.getElementById("bgm").play();
-    bgmPlayed = true;
-    bgmIsPlaying = true;
+    bgmPlayed = true; // BGMが再生されたことを記録
   }
   if (lockBoard || card.classList.contains("matched") || card.classList.contains("flipped")) return;
   card.classList.add("flipped");
@@ -127,18 +110,11 @@ function restartGame() {
   flipped = [];
   lockBoard = false;
   bgmPlayed = false; // BGMの状態をリセット
-  // BGMを停止し、曲の最初に戻す
   const bgm = document.getElementById("bgm");
   bgm.pause();
-  bgm.currentTime = 0;
-  // BGMボタンのテキストをリセット
-  document.getElementById("toggleBGMButton").textContent = "BGMを再生";
-  bgmIsPlaying = false;
+  bgm.currentTime = 0; // 曲の再生位置を最初に戻す
   renderCards();
 }
 
 // --- 初期化：ページ読み込み時にゲーム開始 ---
-window.addEventListener("DOMContentLoaded", () => {
-    renderCards();
-    document.getElementById("toggleBGMButton").addEventListener("click", toggleBGM);
-});
+window.addEventListener("DOMContentLoaded", renderCards);
