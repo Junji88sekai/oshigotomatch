@@ -51,6 +51,22 @@ function createCard(card, index) {
 function playBGM() {
   document.getElementById("bgm").play();
 }
+let bgmIsPlaying = true; // BGMが再生中かどうかを追跡する
+
+// BGMを再生/停止する関数
+function toggleBGM() {
+    const bgm = document.getElementById("bgm");
+    const bgmButton = document.getElementById("toggleBGMButton");
+
+    if (bgmIsPlaying) {
+        bgm.pause();
+        bgmButton.textContent = "BGMを再生";
+    } else {
+        bgm.play();
+        bgmButton.textContent = "BGMを止める";
+    }
+    bgmIsPlaying = !bgmIsPlaying; // 状態を反転
+}
 // --- カードを3列に分けて表示 ---
 function renderCards() {
   const row1 = document.getElementById("row1");
