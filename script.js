@@ -47,7 +47,10 @@ function createCard(card, index) {
   div.addEventListener("click", () => handleCardClick(div));
   return div;
 }
-
+// --- BGM再生 ---
+function playBGM() {
+  document.getElementById("bgm").play();
+}
 // --- カードを3列に分けて表示 ---
 function renderCards() {
   const row1 = document.getElementById("row1");
@@ -67,7 +70,7 @@ function renderCards() {
   row1Cards.forEach((card, i) => row1.appendChild(createCard(card, i)));
   row2Cards.forEach((card, i) => row2.appendChild(createCard(card, i + 7)));
   row3Cards.forEach((card, i) => row3.appendChild(createCard(card, i + 13)));
-
+playBGM(); // ここに追加
   // startTimer(); ← 削除
 }
 
