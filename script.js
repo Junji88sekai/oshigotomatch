@@ -67,6 +67,13 @@ function toggleBGM() {
     }
     bgmIsPlaying = !bgmIsPlaying; // 状態を反転
 }
+window.addEventListener("DOMContentLoaded", () => {
+    // 既存のコード
+    renderCards();
+    
+    // BGMボタンのイベントリスナーを追加
+    document.getElementById("toggleBGMButton").addEventListener("click", toggleBGM);
+});
 // --- カードを3列に分けて表示 ---
 function renderCards() {
   const row1 = document.getElementById("row1");
