@@ -16,9 +16,9 @@ function shuffle(array) {
 
 // --- 初期化 ---
 let flipped = [], lockBoard = false;
-let startTime, timerInterval;
+// let startTime, timerInterval; ← 削除
 
-const selectedIds = shuffle([...allIds]).slice(0, 10); // ランダム10種類
+const selectedIds = shuffle([...allIds]).slice(0, 10);
 let cards = [];
 selectedIds.forEach(id => {
   cards.push({ type: "A", id, image: `images/${id}_A.png` });
@@ -35,10 +35,9 @@ function createCard(card, index) {
   div.innerHTML = `
     <div class="card-inner">
       <div class="card-face card-front">
-  <img src="images/omote.png" alt="front">
-  <div class="card-digit">${index + 1}</div> <!-- 中央の大きな数字 -->
-
-</div>
+        <img src="images/omote.png" alt="front">
+        <div class="card-digit">${index + 1}</div>
+      </div>
       <div class="card-face card-back">
         <img src="${card.image}" alt="${card.id}">
       </div>
@@ -69,7 +68,7 @@ function renderCards() {
   row2Cards.forEach((card, i) => row2.appendChild(createCard(card, i + 7)));
   row3Cards.forEach((card, i) => row3.appendChild(createCard(card, i + 13)));
 
-  startTimer();
+  // startTimer(); ← 削除
 }
 
 // --- カードをクリックした時の処理 ---
@@ -94,8 +93,10 @@ function handleCardClick(card) {
         if (document.getElementById("toggleSound").checked)
           document.getElementById("correctSound").play();
 
+        // 全カード一致判定は残して、タイマー停止の呼び出しを削除
         if (document.querySelectorAll(".matched").length === 20)
-          stopTimer(); // 全カード一致で終了
+          // stopTimer(); ← 削除
+          console.log("ゲームクリア！"); // コンソールに表示するだけにするなど
       } else {
         a.classList.remove("flipped");
         b.classList.remove("flipped");
@@ -119,21 +120,6 @@ function restartGame() {
   flipped = [];
   lockBoard = false;
   renderCards();
-}
-
-// --- タイマー開始 ---
-function startTimer() {
-  startTime = Date.now();
-  clearInterval(timerInterval);
-  timerInterval = setInterval(() => {
-    const elapsed = Math.floor((Date.now() - startTime) / 1000);
-    document.getElementById("timer").textContent = `経過時間: ${elapsed} 秒`;
-  }, 1000);
-}
-
-// --- タイマー停止 ---
-function stopTimer() {
-  clearInterval(timerInterval);
 }
 
 // --- 初期化：ページ読み込み時にゲーム開始 ---
