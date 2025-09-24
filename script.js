@@ -65,10 +65,9 @@ function renderCards() {
 
 // --- カードをクリックした時の処理 ---
 function handleCardClick(card) {
-  // BGMがまだ再生されていない場合、最初のクリックで再生を開始
   if (!bgmPlayed) {
     document.getElementById("bgm").play();
-    bgmPlayed = true; // BGMが再生されたことを記録
+    bgmPlayed = true;
   }
   if (lockBoard || card.classList.contains("matched") || card.classList.contains("flipped")) return;
   card.classList.add("flipped");
@@ -109,12 +108,24 @@ function revealAll() {
 function restartGame() {
   flipped = [];
   lockBoard = false;
-  bgmPlayed = false; // BGMの状態をリセット
+  bgmPlayed = false;
   const bgm = document.getElementById("bgm");
   bgm.pause();
-  bgm.currentTime = 0; // 曲の再生位置を最初に戻す
+  bgm.currentTime = 0;
   renderCards();
 }
 
 // --- 初期化：ページ読み込み時にゲーム開始 ---
-window.addEventListener("DOMContentLoaded", renderCards);
+window.addEventListener("DOMContentLoaded", () => {
+  renderCards();
+  
+  // BGM音量スライダーのイベントリスナー
+  const volumeSlider = document.getElementById("volumeSlider");
+  const bgm = document.getElementById("bgm");
+  
+  if (volumeSlider && bgm) {
+    volumeSlider.addEventListener("input", () => {
+      bgm.volume = volumeSlider.value;
+    });
+  }
+});
