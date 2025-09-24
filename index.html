@@ -6,11 +6,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Shigoto Memory Game</h1>
-
     <div id="controls">
-        <label><input type="checkbox" id="toggleSound" checked> 音をつける</label>
-    </div>
+        </div>
 
     <div id="game-board">
         <div class="row" id="row1"></div>
@@ -21,12 +18,15 @@
     <div id="bottom-controls">
         <button onclick="revealAll()">カードを全部めくる</button>
         <button onclick="restartGame()">リスタート</button>
+        <label><input type="checkbox" id="toggleSound" checked> 音をつける</label>
         <button id="toggleBGMButton">BGMを止める</button>
         <div id="volume-control">
             <label for="volumeSlider">BGM音量:</label>
             <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="1">
         </div>
-    </div> <audio id="flipSound" src="sounds/flip.mp3" preload="auto"></audio>
+    </div>
+
+    <audio id="flipSound" src="sounds/flip.mp3" preload="auto"></audio>
     <audio id="correctSound" src="sounds/correct.mp3" preload="auto"></audio>
     <audio id="wrongSound" src="sounds/wrong.mp3" preload="auto"></audio>
     <audio id="bgm" src="sounds/bgm1.mp3" loop></audio>
